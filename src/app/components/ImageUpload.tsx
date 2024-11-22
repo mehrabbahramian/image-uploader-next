@@ -16,7 +16,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 interface uploadedImageType {
     url: string,
-    isLoading: boolean
+    isLoading: boolean,
+    name: string
 }
 
 const ImageUpload: React.FC = () => {
@@ -27,7 +28,8 @@ const ImageUpload: React.FC = () => {
         if (files) {
             const newImages: uploadedImageType[] = Array.from(files).map((file) => ({
                 url: URL.createObjectURL(file),
-                isLoading: true
+                isLoading: true,
+                name: file.name
             }))
 
             setImages((prevImages) => [...prevImages, ...newImages]);
@@ -96,8 +98,18 @@ const ImageUpload: React.FC = () => {
                                     onClick={() => handleDeleteImage(image.url)}
                                 >
                                     <DeleteIcon />
-                                    {}
                                 </IconButton>
+                                <Typography
+                                    sx={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        display: '-webkit-box',
+                                        WebkitLineClamp: '1',
+                                        WebkitBoxOrient: 'vertical',
+                                    }}
+                                >
+                                    {image.name}
+                                </Typography>
                             </CardActions>
                         </Card>
                     </Grid>
