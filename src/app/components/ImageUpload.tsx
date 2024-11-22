@@ -9,7 +9,10 @@ import {
     Card,
     CardMedia,
     CircularProgress,
+    CardActions,
+    IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface uploadedImageType {
     url: string,
@@ -42,7 +45,7 @@ const ImageUpload: React.FC = () => {
     };
 
     const handleDeleteImage = (url: string) => {
-
+        setImages((prevImages) => prevImages.filter((img) => img.url !== url));
     }
 
     return (
@@ -79,7 +82,7 @@ const ImageUpload: React.FC = () => {
                                 >
                                     <CircularProgress />
                                 </Box>
-                            ): (
+                            ) : (
                                 <CardMedia
                                     component="img"
                                     height="140"
@@ -87,7 +90,16 @@ const ImageUpload: React.FC = () => {
                                     alt={`Uploaded preview ${index + 1}`}
                                 />
                             )}
-                                </Card>
+                            <CardActions>
+                                <IconButton
+                                    color="error"
+                                    onClick={() => handleDeleteImage(image.url)}
+                                >
+                                    <DeleteIcon />
+                                    {}
+                                </IconButton>
+                            </CardActions>
+                        </Card>
                     </Grid>
                 ))}
             </Grid>
